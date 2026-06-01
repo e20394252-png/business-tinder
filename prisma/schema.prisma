@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  telegramId    BigInt   @unique
+  username      String?
+  firstName     String?
+  lastName      String?
+  photoUrl      String?
+  bio           String?
+  notifyOnMatch Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  swipesGiven    Swipe[] @relation("SwipesGiven")
+  swipesReceived Swipe[] @relation("SwipesReceived")
+  matchesAsUser1 Match[] @relation("MatchUser1")
+  matchesAsUser2 Match[] @relation("MatchUser2")
+}
+
+model Swipe {
+  id        Int      @id @default(autoincrement())
+  swiper    User     @relation("SwipesGiven", fields: [swiperId], references: [id])
+  swiperId  Int
+  target    User     @relation("SwipesReceived", fields: [targetId], references: [id])
+  targetId  Int
+  direction String   // "LIKE" or "PASS"
+  createdAt DateTime @default(now())
+
+  @@unique([swiperId, targetId])
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  user1     User     @relation("MatchUser1", fields: [user1Id], references: [id])
+  user1Id   Int
+  user2     User     @relation("MatchUser2", fields: [user2Id], references: [id])
+  user2Id   Int
+  createdAt DateTime @default(now())
+
+  @@unique([user1Id, user2Id])
+}

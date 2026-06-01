@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Business Tinder</title>
+  <meta name="description" content="Деловой Тиндер — найди идеального бизнес-партнёра">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div id="loading-screen" class="screen active">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-icon">🤝</div>
+        <h1>Business Tinder</h1>
+        <p>Деловой нетворкинг</p>
+      </div>
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <nav id="top-nav">
+      <button class="nav-tab active" data-screen="swipe-screen" id="nav-swipe">
+        <span class="nav-icon">🃏</span><span>Свайп</span>
+      </button>
+      <button class="nav-tab" data-screen="matches-screen" id="nav-matches">
+        <span class="nav-icon">❤️</span><span>Мэтчи</span>
+        <span class="match-badge hidden" id="match-badge">0</span>
+      </button>
+      <button class="nav-tab" data-screen="settings-screen" id="nav-settings">
+        <span class="nav-icon">⚙️</span><span>Настройки</span>
+      </button>
+    </nav>
+
+    <div id="swipe-screen" class="screen active">
+      <div class="swipe-container">
+        <div id="card-stack" class="card-stack"></div>
+        <div id="empty-state" class="empty-state hidden">
+          <div class="empty-icon">🔍</div>
+          <h2>Пока нет профилей</h2>
+          <p>Новые люди скоро появятся!</p>
+        </div>
+      </div>
+      <div class="swipe-actions" id="swipe-actions">
+        <button class="action-btn action-pass" id="btn-pass">✕</button>
+        <button class="action-btn action-like" id="btn-like">♥</button>
+      </div>
+    </div>
+
+    <div id="matches-screen" class="screen hidden">
+      <div class="screen-header"><h2>Ваши мэтчи</h2></div>
+      <div id="matches-list" class="matches-list"></div>
+      <div id="matches-empty" class="empty-state hidden">
+        <div class="empty-icon">💼</div>
+        <h2>Пока нет мэтчей</h2>
+        <p>Продолжайте свайпать!</p>
+      </div>
+    </div>
+
+    <div id="settings-screen" class="screen hidden">
+      <div class="screen-header"><h2>Настройки</h2></div>
+      <div class="settings-content">
+        <div class="settings-profile" id="settings-profile">
+          <div class="settings-avatar" id="settings-avatar"><span>👤</span></div>
+          <div class="settings-info">
+            <h3 id="settings-name">—</h3>
+            <p id="settings-username">@—</p>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h4>Уведомления</h4>
+          <div class="setting-row">
+            <div class="setting-label">
+              <span>Уведомления о мэтчах</span>
+              <span class="setting-desc">Сообщение в бот при новом мэтче</span>
+            </div>
+            <label class="toggle"><input type="checkbox" id="notify-checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h4>О приложении</h4>
+          <p class="about-text">Business Tinder v1.0<br>Деловой нетворкинг 🤝</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="match-popup" class="match-popup hidden">
+      <div class="match-popup-content">
+        <div class="match-celebration">🎉</div>
+        <h2>Это мэтч!</h2>
+        <p id="match-popup-text">Вы понравились друг другу</p>
+        <div class="match-popup-avatars">
+          <div class="match-popup-avatar" id="match-popup-my-avatar">👤</div>
+          <div class="match-heart">❤️</div>
+          <div class="match-popup-avatar" id="match-popup-their-avatar">👤</div>
+        </div>
+        <div class="match-popup-actions">
+          <button class="btn btn-primary" id="match-popup-write">Написать</button>
+          <button class="btn btn-secondary" id="match-popup-continue">Продолжить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/app.js"></script>
+</body>
+</html>
